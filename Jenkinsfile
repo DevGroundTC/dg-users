@@ -6,6 +6,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                //еще раз проходят тесты???
+                //sh 'mvn clean package'
             }
         }
 
@@ -17,21 +19,27 @@ pipeline {
 
         stage('Docker build') {
             steps {
-                sh 'docker build -t dg-user-api:latest .'
+               // sh 'docker build -t dg-user-api:latest .'
+                sh 'docker build -t dg-user-api:v1 .'
         }
         }
 
         stage('Deploy') {
              steps {
+            // // как остановится, если сначала не запускали
+            //     sh 'docker stop dg-user-api:latest'
+            //     sh 'docker run -p 1000:1000 --name user-api dg-user-api:latest'
+            // }
                       script {
-                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-user-api:v1").trim()
+                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-user-api:latest").trim()
                     if (previousContainerId) {
                         sh "docker stop $previousContainerId"
                     } else {
                         echo "Предыдущий контейнер отсутствует"
                     }
                 }
-            sh 'docker run -d -p 1000:1000 dg-user-api:latest --name dg-user-api:v1'
+            // sh 'docker run -d -p 1000:1000 --name user-api dg-user-api:latest'
+            sh 'docker run -d -p 1000:1000 dg-user-api:v1 --name dg-user-api:latest'
                  echo "Контейнер запущен"
         }
     }
