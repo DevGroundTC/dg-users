@@ -24,14 +24,14 @@ pipeline {
         stage('Deploy') {
              steps {
                       script {
-                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-user-api").trim()
+                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-user-api:v1").trim()
                     if (previousContainerId) {
                         sh "docker stop $previousContainerId"
                     } else {
                         echo "Предыдущий контейнер отсутствует"
                     }
                 }
-            sh 'docker run -d -p 1000:1000 dg-user-api:latest --name dg-user-api'
+            sh 'docker run -d -p 1000:1000 dg-user-api:latest --name dg-user-api:v1'
                  echo "Контейнер запущен"
         }
     }
