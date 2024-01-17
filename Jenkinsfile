@@ -31,7 +31,7 @@ pipeline {
                         echo "Предыдущий контейнер отсутствует"
                     }
                 }
-            sh 'docker run -d -p 1000:2000 dg-users:latest --name dg-users'
+            sh 'docker run -d -p 2000:2000 dg-users:latest --name dg-users'
                  echo "Контейнер запущен"
         }
     }
