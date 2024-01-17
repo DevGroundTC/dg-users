@@ -17,21 +17,21 @@ pipeline {
 
         stage('Docker build') {
             steps {
-                sh 'docker build -t dg-user-api:latest .'
+                sh 'docker build -t dg-users:latest .'
         }
         }
 
         stage('Deploy') {
              steps {
                       script {
-                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-user-api").trim()
+                    def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-users").trim()
                     if (previousContainerId) {
                         sh "docker stop $previousContainerId"
                     } else {
                         echo "Предыдущий контейнер отсутствует"
                     }
                 }
-            sh 'docker run -d -p 1000:1000 dg-user-api:latest --name dg-user-api'
+            sh 'docker run -d -p 1000:1000 dg-users:latest --name dg-users'
                  echo "Контейнер запущен"
         }
     }
