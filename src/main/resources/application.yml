@@ -1,2 +1,14 @@
 server:
-  port: 1001
+  port: 8889
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dg-users
+    username: postgres
+    password: postgres
+  liquibase:
+    enabled: true
+
+logging:
+  level:
+    root: INFO
