@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - includeAll:
+      relativeToChangelogFile: true
+      path: migrations/changes
+  - includeAll:
+     relativeToChangelogFile: true
+     path: migrations/tests

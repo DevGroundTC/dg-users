@@ -1,11 +1,24 @@
 server:
   port: 8889
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/devgroundtc.p12
+    key-store-password: password
+    key-alias: devgroundtc
+    enabled: true
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/dg-users
+    url: jdbc:postgresql://postgres:5432/dg-users
     username: postgres
     password: postgres
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+        show_sql: true
+        format_sql: true
   liquibase:
     enabled: true
 
