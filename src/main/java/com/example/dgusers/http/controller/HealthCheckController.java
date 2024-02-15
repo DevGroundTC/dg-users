@@ -1,4 +1,4 @@
-package com.example.dgusers.controllers;
+package com.example.dgusers.http.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,12 +1,9 @@
 package com.example.dgusers;
 
+import com.example.dgusers.integration.IntegrationTestBase;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class DgUsersApplicationTests {
+class DgUsersApplicationTests extends IntegrationTestBase {
 
     @Test
     void contextLoads() {
