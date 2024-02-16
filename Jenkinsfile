@@ -27,11 +27,12 @@ pipeline {
                     def previousContainerId = sh(returnStdout: true, script: "docker ps -q --filter ancestor=dg-users").trim()
                     if (previousContainerId) {
                         sh "docker stop $previousContainerId"
+                        sh 'docker container rm dg-users'
                     } else {
                         echo "Предыдущий контейнер отсутствует"
                     }
                 }
-            sh 'docker run -d -p 8889:8889 dg-users:latest --name dg-users'
+            sh 'docker run --network dg-user-network -d -p 8889:8889 --name dg-users dg-users:latest'
                  echo "Контейнер запущен"
         }
     }
