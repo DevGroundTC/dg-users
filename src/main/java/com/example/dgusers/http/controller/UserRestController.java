@@ -1,11 +1,13 @@
 package com.example.dgusers.http.controller;
 
+import com.example.dgusers.dto.UserCreateEditDtoRequest;
 import com.example.dgusers.dto.UserReadDtoRequest;
 import com.example.dgusers.dto.UserReadDtoResponse;
 import com.example.dgusers.service.UserService;
 import com.example.dgusers.util.JacksonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,13 @@ public class UserRestController {
         var result = userService.findById(userReadDtoRequest);
         log.info("Returning JSON result: " + System.lineSeparator() + JacksonUtil.fromObjectToJson(result));
         return result;
+    }
+
+    @PostMapping(path = "/register", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserReadDtoResponse> create(@RequestBody UserCreateEditDtoRequest userCreateEditDtoRequest) {
+        log.info("Create or update user. Incoming JSON: " + System.lineSeparator() + JacksonUtil.fromObjectToJson(userCreateEditDtoRequest));
+        var resultUser = userService.create(userCreateEditDtoRequest);
+        log.info("Returning JSON result: " + System.lineSeparator() + JacksonUtil.fromObjectToJson(resultUser));
+        return resultUser;
     }
 }
